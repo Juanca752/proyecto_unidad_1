@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MovieSlider extends StatelessWidget {
-  const MovieSlider({super.key});
+class CastingSlider extends StatelessWidget {
+  const CastingSlider({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class MovieSlider extends StatelessWidget {
           padding: EdgeInsets.symmetric(
               horizontal: 20), //separacion Horizontal de 20 pixeles
           child: Text(
-            'Populares',
+            'Actores',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
@@ -23,7 +23,7 @@ class MovieSlider extends StatelessWidget {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: 20,
-            itemBuilder: (_, int index) => const _MoviePoster(),
+            itemBuilder: (_, int index) => const _CastingPoster(),
           ),
         )
       ]),
@@ -32,8 +32,8 @@ class MovieSlider extends StatelessWidget {
 }
 
 //Crear las tarjetas
-class _MoviePoster extends StatelessWidget {
-  const _MoviePoster({super.key});
+class _CastingPoster extends StatelessWidget {
+  const _CastingPoster({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class _MoviePoster extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           const Text(
-            'Yo solo se que nose nada',
+            'Actores.name',
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
