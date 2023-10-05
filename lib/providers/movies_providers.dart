@@ -8,6 +8,9 @@ class MoviesProvider extends ChangeNotifier{
  String _apiKey = '9dc27117b000e7e5acfb365fa957971a';
  String _language= 'es-MX';
  
+
+ List<Movie> OnDisplayMovies =[];
+
  MoviesProvider(){
   getOnDisplayMovies();
  }
@@ -21,6 +24,9 @@ class MoviesProvider extends ChangeNotifier{
    // print(decodeData);
    //print(response.body);
    final nowPLayingResponse = NowPlayingResponse.fromRawJson(response.body);
-   print(nowPLayingResponse.results[0].title);
+   OnDisplayMovies =nowPLayingResponse.results;
+  // La comunicamos a todos los widgets que estan escuchando que se cambio la por lo tanto se debe redibujar
+   notifyListeners();
+  // print(nowPLayingResponse.results[0].title);
  }
 }
