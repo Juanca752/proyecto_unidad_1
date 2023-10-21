@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:proyecto_unidad1/screens/screens.dart';
 import 'package:provider/provider.dart';
 import 'providers/movies_providers.dart';
-void main() => runApp(const AppState());
 
+void main() => runApp(const AppState());
 
 class AppState extends StatelessWidget {
   const AppState({super.key});
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           false, //quitar la madre del debug pq me estorbaba
       title: 'peliculas',
       initialRoute: 'home',
-      routes: {'home': (_) => HomeScreen(), 'details': (_) => DetailScreen()},
+      routes: {'home': (_) => HomeScreen(), 'details': (_) => DetailsScreen()},
     );
   }
 }
