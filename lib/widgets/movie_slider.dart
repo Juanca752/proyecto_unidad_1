@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../models/movie.dart';
+
 class MovieSlider extends StatelessWidget {
-  const MovieSlider({super.key});
+  final List<Movie> movies;
+  final String? title;
+  const MovieSlider({super.key, required this.movies, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -9,31 +13,36 @@ class MovieSlider extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: size.height * 0.30,
-      color: Colors.indigo,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: 20), //separacion Horizontal de 20 pixeles
-          child: Text(
-            'Populares',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      color: Colors.red,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              'Populares',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 20,
-            itemBuilder: (_, int index) => const _MoviePoster(),
-          ),
-        )
-      ]),
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: movies.length,
+              itemBuilder: (_, int index) => _MoviePoster(movie: movies[index]),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
 
-//Crear las tarjetas
 class _MoviePoster extends StatelessWidget {
-  const _MoviePoster({super.key});
+  final Movie movie;
+  const _MoviePoster({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -49,16 +58,16 @@ class _MoviePoster extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
                 placeholder: AssetImage('assets/camarita.jpg'),
-                image: AssetImage('assets/camarita.jpg'),
+                image: NetworkImage(movie.fullPosterImage),
                 width: 130,
                 height: 165,
               ),
             ),
           ),
           const SizedBox(height: 5),
-          const Text(
-            'Pos ni supe q decia ahi pq creo taba en portugues',
-            maxLines: 3,
+          Text(
+            movie.title,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
           )

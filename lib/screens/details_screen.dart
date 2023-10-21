@@ -1,12 +1,143 @@
 import 'package:flutter/material.dart';
 
-class DetailScreen extends StatelessWidget {
-  const DetailScreen({super.key});
+import '../models/movie.dart';
+
+class DetailsScreen extends StatelessWidget {
+  const DetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text('Details Screen'),
+    //Recibir argumentos de otra pantalla
+    final String movie =
+        ModalRoute.of(context)?.settings.arguments.toString() ?? 'Sin nombre';
+    return const Scaffold(
+      body: CustomScrollView(
+        //Widget con comportamientos predefinidos al scroll
+        slivers: [
+          _CustomAppBar(),
+          SliverList(
+            delegate: SliverChildListDelegate.fixed(
+              [
+                _PosterAndTitle(),
+                _Overview(),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _CustomAppBar extends StatelessWidget {
+  const _CustomAppBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverAppBar(
+      backgroundColor: Colors.indigoAccent,
+      expandedHeight: 200,
+      floating: false,
+      pinned: true,
+      //wIDGET PARA QUE SE AGUSTE AL TAMAÑO
+      flexibleSpace: FlexibleSpaceBar(
+        centerTitle: true,
+        //Eliminar padding
+        titlePadding: EdgeInsets.all(0),
+        title: Container(
+          width: double.infinity,
+          alignment: Alignment.bottomCenter,
+          color: Colors.black12,
+          child: const Text(
+            'movie.title',
+            style: TextStyle(fontSize: 18),
+          ),
+        ),
+        background: FadeInImage(
+          placeholder: AssetImage('assets/loading.gif'),
+          image: AssetImage('assets/camarita.jpg'),
+        ),
+      ),
+    );
+  }
+}
+
+class _PosterAndTitle extends StatelessWidget {
+  const _PosterAndTitle({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: FadeInImage(
+              placeholder: AssetImage('assets/camarita.jpg'),
+              image: AssetImage('assets/camarita.jpg'),
+              height: 250,
+            ),
+          ),
+          SizedBox(width: 20),
+          const Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'movie.title',
+                  style: TextStyle(fontSize: 30),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
+                Text(
+                  'movie.titleOriganl',
+                  style: TextStyle(fontSize: 18),
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.star_outline,
+                      size: 20,
+                      color: Colors.blueAccent,
+                    ),
+                    SizedBox(width: 5),
+                    Text(
+                      'movie.voteAverage',
+                      style: TextStyle(fontSize: 15),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    )
+                  ],
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _Overview extends StatelessWidget {
+  const _Overview({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 10,
+      ),
+      child: const Text(
+        'Exercitation sint velit irure occaecat sint magna quis non sunt deserunt. Occaecat id pariatur velit labore tempor. Ex ea do ipsum eiusmod ad laboris minim. Velit aliquip in ex aliquip nulla reprehenderit dolor occaecat proident dolor dolore consectetur laboris. Nisi exercitation labore consectetur cillum quis enim enim veniam culpa laborum.',
+        textAlign: TextAlign.justify,
+        style: TextStyle(fontSize: 15),
+      ),
     );
   }
 }
